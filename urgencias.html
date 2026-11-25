@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>AR – Urgencias – Hospital virtual</title>
+<script src="libs/aframe.min.js"></script>
+<script src="libs/aframe-ar.js"></script>
+<style>
+html,body{margin:0;height:100%;overflow:hidden;font-family:Arial,Helvetica,sans-serif;color-scheme:light;color:#1f2933}
+#top{pointer-events:none;position:fixed;left:0;right:0;top:0;z-index:10;background:#D62828;color:#fff;padding:8px 12px;font-weight:bold;font-size:15px}
+#top small{display:block;font-weight:normal;font-size:12px;opacity:.95}
+#status{position:fixed;left:10px;right:10px;top:64px;z-index:10;background:rgba(0,0,0,.65);color:#fff;border-radius:8px;padding:8px 10px;font-size:13px;text-align:center}
+#panel{position:fixed;left:0;right:0;bottom:0;z-index:10;background:rgba(255,255,255,.95);color:#1f2933;max-height:38%;overflow:auto;padding:8px 12px 12px;font-size:13px;line-height:1.35;border-top:3px solid #D62828}
+#panel h3{margin:6px 0 2px;color:#D62828;font-size:14px}
+#panel ol,#panel ul{margin:2px 0 4px;padding-left:18px}
+#info{background:#fff7e0;color:#1f2933;border-left:4px solid #D62828;padding:5px 8px;margin:4px 0;border-radius:4px}
+#panel a{color:#D62828}
+#tgl{float:right;background:#D62828;color:#fff;border:0;border-radius:14px;padding:5px 11px;font-size:12px}
+</style></head><body>
+<div id="top">AR · Urgencias<small>Apunta la cámara al marcador y toca las esferas</small></div>
+<div id="status">Permite el acceso a la cámara y apunta al marcador Hiro (<a href="data/hiro.png" style="color:#ffd" target="_blank">ver marcador</a>)</div>
+<a-scene embedded vr-mode-ui="enabled:false" renderer="logarithmicDepthBuffer:true;colorManagement:true" arjs="sourceType:webcam;debugUIEnabled:false;detectionMode:mono_and_matrix;matrixCodeType:3x3;trackingMethod:best;cameraParametersUrl:data/camera_para.dat" cursor="rayOrigin:mouse" raycaster="objects:.hot">
+ <a-marker type="pattern" url="data/patt.hiro" smooth="true" smoothCount="10" id="mk">
+  <a-entity scale="0.1 0.1 0.1" position="0 0 0" id="world">
+   <a-plane rotation="-90 0 0" width="14" height="12" color="#e0c9a6" position="0 0 -0.5"></a-plane>
+   <a-box position="0 1.5 -5" width="14" height="3" depth="0.2" color="#f4f4f4"></a-box>
+   <a-box position="-7 1.5 -0.5" width="0.2" height="3" depth="12" color="#f0f0f0"></a-box>
+   <a-box position="7 1.5 -0.5" width="0.2" height="3" depth="12" color="#f0f0f0"></a-box>
+   <a-box position="0 2.2 -4.8" width="1.6" height="0.5" depth="0.1" color="#D62828"></a-box><a-box position="0 2.2 -4.75" width="0.15" height="0.4" depth="0.1" color="#fff"></a-box><a-box position="0 2.2 -4.75" width="0.4" height="0.12" depth="0.1" color="#fff"></a-box><a-box position="-3 0.5 0" width="2.2" height="1" depth="0.8" color="#8d6e63"></a-box><a-box position="1.5 0.5 -2.5" width="0.9" height="0.3" depth="2" color="#ffffff"></a-box><a-cylinder position="1.5 0.2 -2.5" radius="0.04" height="0.4" color="#999"></a-cylinder><a-box position="3.0 0.5 -2.5" width="0.9" height="0.3" depth="2" color="#ffffff"></a-box><a-cylinder position="3.0 0.2 -2.5" radius="0.04" height="0.4" color="#999"></a-cylinder><a-box position="4.5 0.5 -2.5" width="0.9" height="0.3" depth="2" color="#ffffff"></a-box><a-cylinder position="4.5 0.2 -2.5" radius="0.04" height="0.4" color="#999"></a-cylinder><a-sphere class="hot" position="-3 2.2 0" radius="0.35" color="#D62828" data-t="Triage" data-d="Aquí se valora la gravedad y se define la prioridad." animation="property: scale; to: 1.25 1.25 1.25; dir: alternate; dur: 800; loop: true"></a-sphere><a-sphere class="hot" position="2.5 2.2 -2.5" radius="0.35" color="#D62828" data-t="Camillas" data-d="Zona de atención inmediata." animation="property: scale; to: 1.25 1.25 1.25; dir: alternate; dur: 800; loop: true"></a-sphere><a-sphere class="hot" position="3.4 1.9 2.5" radius="0.35" color="#D62828" data-t="Sala de espera" data-d="Espera para familiares y pacientes de menor gravedad." animation="property: scale; to: 1.25 1.25 1.25; dir: alternate; dur: 800; loop: true"></a-sphere>
+  </a-entity>
+  <a-light type="ambient" color="#ffffff" intensity="1"></a-light>
+ </a-marker>
+ <a-entity camera></a-entity>
+</a-scene>
+<div id="panel"><button id="tgl">Ocultar</button>
+<div id="info"><b>Toca una esfera</b> del modelo para ver qué hay en cada punto.</div>
+<h3>Dónde queda</h3><div>Acceso señalizado en rojo, con entrada directa y despejada.</div>
+<h3>Cómo llegar desde recepción</h3><ol><li>Sigue la señal roja de urgencias.</li><li>Preséntate en el punto de clasificación (triage).</li><li>El personal valora la gravedad y define el orden de atención.</li><li>Espera en la zona indicada o pasa a la camilla asignada.</li></ol>
+<h3>Recomendaciones</h3><ul><li>En una emergencia vital, avisa de inmediato al personal.</li><li>Lleva documento y medicamentos que tome el paciente.</li><li>La atención se prioriza por gravedad, no por orden de llegada.</li></ul>
+<div><a href="index.html">Ver todas las áreas</a> · <a href="https://framevr.io/hospital123456789">Hospital en FrameVR</a></div></div>
+<script>
+document.querySelectorAll('.hot').forEach(function(e){e.addEventListener('click',function(){
+ document.getElementById('info').innerHTML='<b>'+e.dataset.t+':</b> '+e.dataset.d;});});
+var mk=document.getElementById('mk'),st=document.getElementById('status');
+mk.addEventListener('markerFound',function(){st.style.display='none'});
+mk.addEventListener('markerLost',function(){st.style.display='block';st.textContent='Marcador perdido: vuelve a apuntar al marcador Hiro'});
+var p=document.getElementById('panel'),b=document.getElementById('tgl'),open=true;
+b.onclick=function(){open=!open;[].forEach.call(p.children,function(c){if(c!==b)c.style.display=open?'':'none'});b.textContent=open?'Ocultar':'Mostrar';};
+</script></body></html>

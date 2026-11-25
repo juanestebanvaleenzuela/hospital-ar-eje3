@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>AR – Hospitalización y quirófano – Hospital virtual</title>
+<script src="libs/aframe.min.js"></script>
+<script src="libs/aframe-ar.js"></script>
+<style>
+html,body{margin:0;height:100%;overflow:hidden;font-family:Arial,Helvetica,sans-serif;color-scheme:light;color:#1f2933}
+#top{pointer-events:none;position:fixed;left:0;right:0;top:0;z-index:10;background:#C0392B;color:#fff;padding:8px 12px;font-weight:bold;font-size:15px}
+#top small{display:block;font-weight:normal;font-size:12px;opacity:.95}
+#status{position:fixed;left:10px;right:10px;top:64px;z-index:10;background:rgba(0,0,0,.65);color:#fff;border-radius:8px;padding:8px 10px;font-size:13px;text-align:center}
+#panel{position:fixed;left:0;right:0;bottom:0;z-index:10;background:rgba(255,255,255,.95);color:#1f2933;max-height:38%;overflow:auto;padding:8px 12px 12px;font-size:13px;line-height:1.35;border-top:3px solid #C0392B}
+#panel h3{margin:6px 0 2px;color:#C0392B;font-size:14px}
+#panel ol,#panel ul{margin:2px 0 4px;padding-left:18px}
+#info{background:#fff7e0;color:#1f2933;border-left:4px solid #C0392B;padding:5px 8px;margin:4px 0;border-radius:4px}
+#panel a{color:#C0392B}
+#tgl{float:right;background:#C0392B;color:#fff;border:0;border-radius:14px;padding:5px 11px;font-size:12px}
+</style></head><body>
+<div id="top">AR · Hospitalización y quirófano<small>Apunta la cámara al marcador y toca las esferas</small></div>
+<div id="status">Permite el acceso a la cámara y apunta al marcador Hiro (<a href="data/hiro.png" style="color:#ffd" target="_blank">ver marcador</a>)</div>
+<a-scene embedded vr-mode-ui="enabled:false" renderer="logarithmicDepthBuffer:true;colorManagement:true" arjs="sourceType:webcam;debugUIEnabled:false;detectionMode:mono_and_matrix;matrixCodeType:3x3;trackingMethod:best;cameraParametersUrl:data/camera_para.dat" cursor="rayOrigin:mouse" raycaster="objects:.hot">
+ <a-marker type="pattern" url="data/patt.hiro" smooth="true" smoothCount="10" id="mk">
+  <a-entity scale="0.1 0.1 0.1" position="0 0 0" id="world">
+   <a-plane rotation="-90 0 0" width="14" height="12" color="#e0c9a6" position="0 0 -0.5"></a-plane>
+   <a-box position="0 1.5 -5" width="14" height="3" depth="0.2" color="#f4f4f4"></a-box>
+   <a-box position="-7 1.5 -0.5" width="0.2" height="3" depth="12" color="#f0f0f0"></a-box>
+   <a-box position="7 1.5 -0.5" width="0.2" height="3" depth="12" color="#f0f0f0"></a-box>
+   <a-box position="-3 0.45 -3.0" width="1" height="0.3" depth="2" color="#ffffff"></a-box><a-box position="-3 0.9 -3.9" width="1" height="0.7" depth="0.1" color="#90a4ae"></a-box><a-box position="-3 0.65 -3.6" width="0.6" height="0.15" depth="0.35" color="#bbdefb"></a-box><a-cylinder position="-2.1 0.9 -3.0" radius="0.03" height="1.8" color="#999"></a-cylinder><a-box position="-2.1 1.7 -3.0" width="0.15" height="0.25" depth="0.05" color="#4fc3f7"></a-box><a-box position="-3 0.45 -0.7999999999999998" width="1" height="0.3" depth="2" color="#ffffff"></a-box><a-box position="-3 0.9 -1.6999999999999997" width="1" height="0.7" depth="0.1" color="#90a4ae"></a-box><a-box position="-3 0.65 -1.4" width="0.6" height="0.15" depth="0.35" color="#bbdefb"></a-box><a-cylinder position="-2.1 0.9 -0.7999999999999998" radius="0.03" height="1.8" color="#999"></a-cylinder><a-box position="-2.1 1.7 -0.7999999999999998" width="0.15" height="0.25" depth="0.05" color="#4fc3f7"></a-box><a-box position="-3 0.45 1.4000000000000004" width="1" height="0.3" depth="2" color="#ffffff"></a-box><a-box position="-3 0.9 0.5000000000000003" width="1" height="0.7" depth="0.1" color="#90a4ae"></a-box><a-box position="-3 0.65 0.8000000000000004" width="0.6" height="0.15" depth="0.35" color="#bbdefb"></a-box><a-cylinder position="-2.1 0.9 1.4000000000000004" radius="0.03" height="1.8" color="#999"></a-cylinder><a-box position="-2.1 1.7 1.4000000000000004" width="0.15" height="0.25" depth="0.05" color="#4fc3f7"></a-box><a-box position="0 0.5 2" width="2.4" height="1" depth="0.8" color="#8d6e63"></a-box><a-box position="3.6 1.2 -4.4" width="1.6" height="2.4" depth="0.1" color="#C0392B"></a-box><a-cylinder position="3.6 2.4 -2.5" radius="0.45" height="0.08" color="#eeeeee"></a-cylinder><a-box position="3.6 0.5 -2.5" width="1.4" height="1" depth="0.7" color="#b0bec5"></a-box><a-sphere class="hot" position="-3 2.2 -1" radius="0.35" color="#C0392B" data-t="Habitaciones" data-d="Camas con soporte de suero y equipo de monitoreo." animation="property: scale; to: 1.25 1.25 1.25; dir: alternate; dur: 800; loop: true"></a-sphere><a-sphere class="hot" position="0 2.2 2" radius="0.35" color="#C0392B" data-t="Estación de enfermería" data-d="Si necesitas ayuda, el personal de enfermería te orienta." animation="property: scale; to: 1.25 1.25 1.25; dir: alternate; dur: 800; loop: true"></a-sphere><a-sphere class="hot" position="3.6 2.5 -3" radius="0.35" color="#C0392B" data-t="Quirófano" data-d="Acceso restringido. Solo personal autorizado." animation="property: scale; to: 1.25 1.25 1.25; dir: alternate; dur: 800; loop: true"></a-sphere>
+  </a-entity>
+  <a-light type="ambient" color="#ffffff" intensity="1"></a-light>
+ </a-marker>
+ <a-entity camera></a-entity>
+</a-scene>
+<div id="panel"><button id="tgl">Ocultar</button>
+<div id="info"><b>Toca una esfera</b> del modelo para ver qué hay en cada punto.</div>
+<h3>Dónde queda</h3><div>Ala de hospitalización, acceso desde el vestíbulo central. El quirófano es de acceso restringido.</div>
+<h3>Cómo llegar desde recepción</h3><ol><li>Desde recepción, pregunta por el número de habitación o cama.</li><li>Avanza hasta el acceso de hospitalización.</li><li>Respeta los horarios de visita indicados en la señal.</li><li>El quirófano es de acceso restringido: los familiares esperan en la sala designada.</li></ol>
+<h3>Recomendaciones</h3><ul><li>Pregunta el horario de visitas en recepción.</li><li>Usa las zonas de espera para familiares.</li><li>Mantén silencio y sigue las indicaciones del personal.</li></ul>
+<div><a href="index.html">Ver todas las áreas</a> · <a href="https://framevr.io/hospital123456789">Hospital en FrameVR</a></div></div>
+<script>
+document.querySelectorAll('.hot').forEach(function(e){e.addEventListener('click',function(){
+ document.getElementById('info').innerHTML='<b>'+e.dataset.t+':</b> '+e.dataset.d;});});
+var mk=document.getElementById('mk'),st=document.getElementById('status');
+mk.addEventListener('markerFound',function(){st.style.display='none'});
+mk.addEventListener('markerLost',function(){st.style.display='block';st.textContent='Marcador perdido: vuelve a apuntar al marcador Hiro'});
+var p=document.getElementById('panel'),b=document.getElementById('tgl'),open=true;
+b.onclick=function(){open=!open;[].forEach.call(p.children,function(c){if(c!==b)c.style.display=open?'':'none'});b.textContent=open?'Ocultar':'Mostrar';};
+</script></body></html>
